@@ -33,3 +33,7 @@ local.properties
 #
 node_modules/
 npm-debug.log
+.vscode/launch.json
+.vscode/tasks.json
+examples/rctsockets/android/.settings/org.eclipse.buildship.core.prefs
+examples/rctsockets/android/.project

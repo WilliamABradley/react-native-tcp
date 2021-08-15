@@ -1,4 +1,5 @@
 using Microsoft.ReactNative;
+using Microsoft.ReactNative.Managed;
 
 namespace ReactNativeTcp
 {
@@ -6,6 +7,7 @@ namespace ReactNativeTcp
     {
         public void CreatePackage(IReactPackageBuilder packageBuilder)
         {
+            packageBuilder.AddAttributedModules();
             CreatePackageImplementation(packageBuilder);
         }
 

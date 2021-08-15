@@ -118,8 +118,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="INodeTcpSocket.cs" />
+    <Compile Include="ITcpSocketManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReactNativeModule.cs" />
+    <Compile Include="SocketEvents.cs" />
+    <Compile Include="TcpSocketManager.cs" />
+    <Compile Include="TcpSockets.cs" />
     <Compile Include="ReactPackageProvider.cs" />
   </ItemGroup>
   <ItemGroup>
