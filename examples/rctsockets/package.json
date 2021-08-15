@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "windows": "react-native run-windows",
     "test": "jest",
     "postinstall": "rn-nodeify --install stream,process,util --hack"
   },
@@ -21,6 +24,7 @@
     "react": "^17.0.1",
     "react-native": "^0.64.0",
     "react-native-tcp": "../../",
+    "net": "../../",
     "react-native-windows": "^0.64.0-0",
     "readable-stream": "^1.0.33",
     "stream-browserify": "^1.0.0",

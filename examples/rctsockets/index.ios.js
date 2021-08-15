@@ -14,7 +14,7 @@ import {
   View
 } from 'react-native';
 
-var net = require('net');
+import * as net from 'net';
 
 function randomPort() {
   return Math.random() * 60536 | 0 + 5000; // 60536-65536
