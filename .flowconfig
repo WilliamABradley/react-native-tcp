@@ -77,9 +77,6 @@ flow/
 [options]
 module.system=haste
 
-esproposal.class_static_fields=enable
-esproposal.class_instance_fields=enable
-
 munge_underscores=true
 
 module.name_mapper='^image![a-zA-Z0-9$_-]+$' -> 'GlobalImageStub'
@@ -88,10 +85,6 @@ module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|we
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
 suppress_type=$FixMe
-
-suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(2[0-5]\\|1[0-9]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)
-suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(2[0-5]\\|1[0-9]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)?:? #[0-9]+
-suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 
 [version]
 ^0.155.0

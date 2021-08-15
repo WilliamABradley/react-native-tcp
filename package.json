@@ -2,12 +2,9 @@
   "name": "react-native-tcp",
   "version": "4.0.0",
   "description": "node's net API for react-native",
-  "main": "TcpSockets.js",
+  "main": "./TcpSockets.js",
   "scripts": {
     "start": "exit 1"
-  },
-  "react-native": {
-    "net": "./TcpSockets.js"
   },
   "browser": {
     "net": "./TcpSockets.js"
@@ -49,6 +46,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "eslint-plugin-react": "^7.17.0",
+    "flow": "^0.2.3",
     "react": "^17.0.1",
     "react-native": "^0.64.0",
     "react-native-windows": "^0.64.14"
