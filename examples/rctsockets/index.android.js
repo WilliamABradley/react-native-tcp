@@ -32,7 +32,7 @@ class RctSockets extends Component {
 
   updateChatter(msg) {
     this.setState({
-        chatter: this.state.chatter.concat([msg])
+      chatter: this.state.chatter.concat([msg])
     });
   }
 
@@ -130,3 +130,5 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('rctsockets', () => RctSockets);
+
+module.exports = RctSockets;
