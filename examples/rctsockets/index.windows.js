@@ -13,8 +13,23 @@ import {
   Text,
   View
 } from 'react-native';
+import { inspect } from 'util';
+
+/* let net = {
+  createServer: () => net,
+  listen: () => net,
+  createConnection: () => net,
+  on: () => net,
+}; */
 
 import * as net from 'net';
+/* try {
+  import('net')
+    .then((net) => inspect(net))
+    .catch((e) => console.error(e));
+} catch (e) {
+  console.error(e);
+} */
 
 function randomPort() {
   return Math.random() * 60536 | 0 + 5000; // 60536-65536
@@ -37,6 +52,7 @@ class RctSockets extends Component {
   }
 
   componentDidMount() {
+    this.updateChatter('Creating server...');
     let server = net.createServer((socket) => {
       this.updateChatter('server connected on ' + JSON.stringify(socket.address()));
 
@@ -96,15 +112,16 @@ class RctSockets extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <Text style={styles.title}>Socket Feed</Text>
+        <View style={styles.innerContainer}>
           {this.state.chatter.map((msg, index) => {
             return (
-              <Text key={index} style={styles.welcome}>
+              <Text key={index} style={styles.feed}>
                 {msg}
               </Text>
             );
           })}
-        </ScrollView>
+        </View>
       </View>
     );
   }
@@ -113,14 +130,20 @@ class RctSockets extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  innerContainer: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  title: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    color: 'black'
+  },
+  feed: {
+    color: 'black',
   },
   instructions: {
     textAlign: 'center',

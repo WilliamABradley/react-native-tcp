@@ -8,10 +8,12 @@
     "build": "tsc"
   },
   "react-native": {
-    "net": "./lib/index.js"
+    "net": "./lib/index.js",
+    "stream": "stream-browserify"
   },
   "browser": {
-    "net": "./lib/index.js"
+    "net": "./lib/index.js",
+    "stream": "stream-browserify"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,7 @@
     "events": "^3.0.0",
     "ip-regex": "^4.1.0",
     "process": "^0.11.9",
+    "stream-browserify": "^3.0.0",
     "util": "^0.12.1"
   },
   "devDependencies": {

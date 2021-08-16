@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
@@ -19,6 +19,7 @@
     "babel.config.js",
     "metro.config.js",
     "jest.config.js",
-    "examples/*"
+    "examples/*",
+    "lib/*"
   ]
 }

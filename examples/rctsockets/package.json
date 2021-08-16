@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "windows": "react-native run-windows",
@@ -30,6 +30,8 @@
     "util": "^0.10.4"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.15.3",
+    "@carimus/metro-symlinked-deps": "^1.1.0",
     "babel-jest": "^27.0.6",
     "babel-preset-react-native": "^4.0.1",
     "jest": "^27.0.6",

@@ -1,16 +1,11 @@
-/**
- * Copyright (c) 2015-present, Peel Technologies, Inc.
- * All rights reserved.
- */
-
 import 'process';
 import 'buffer';
 
 import * as stream from 'stream';
 import { AddressInfo, Socket, SocketConnectOpts, SocketConstructorOpts, TcpSocketConnectOpts } from 'net-ish';
-import ipRegex from 'ip-regex';
 import { EmitterSubscription, NativeEventEmitter, NativeModules } from 'react-native';
 import * as base64 from 'base-64';
+import { isIP } from './utils';
 
 const Sockets = NativeModules.TcpSockets;
 let instances = 0;
@@ -75,7 +70,7 @@ export default class TcpSocket extends stream.Duplex implements Socket {
     const localAddress = options.localAddress;
     const localPort = options.localPort;
 
-    if (localAddress && !ipRegex({ exact: true }).test(localAddress)) {
+    if (localAddress && isIP(localAddress) === 0) {
       throw new TypeError(
         '"localAddress" option must be a valid IP: ' + localAddress,
       );
