@@ -1,19 +1,4 @@
-/**
- * Copyright (c) 2015-present, Peel Technologies, Inc.
- * All rights reserved.
- *
- * @providesModule TcpServer
- * @flow
- */
-
-var util = require('util');
-var EventEmitter = require('events').EventEmitter;
-var { NativeModules } = require('react-native');
-var Sockets = NativeModules.TcpSockets;
-
-var Socket = require('./TcpSocket');
-
-function TcpServer(connectionListener: (socket: Socket) => void) {
+function _TcpServer(connectionListener: (socket: Socket) => void) {
   if (!(this instanceof TcpServer)) {
     return new TcpServer(connectionListener);
   }
@@ -26,16 +11,13 @@ function TcpServer(connectionListener: (socket: Socket) => void) {
 
   this._socket = new Socket();
 
-  // $FlowFixMe: suppressing this error flow doesn't like EventEmitter
   this._socket.on('connect', function () {
     self.emit('listening');
   });
-  // $FlowFixMe: suppressing this error flow doesn't like EventEmitter
   this._socket.on('connection', function (socket) {
     self._connections++;
     self.emit('connection', socket);
   });
-  // $FlowFixMe: suppressing this error flow doesn't like EventEmitter
   this._socket.on('error', function (error) {
     self.emit('error', error);
   });
@@ -91,7 +73,7 @@ TcpServer.prototype.address = function (): {
   return this._socket ? this._socket.address() : {};
 };
 
-TcpServer.prototype.close = function (callback: ?() => void) {
+TcpServer.prototype.close = function (callback?: () => void) {
   if (typeof callback === 'function') {
     if (!this._socket) {
       this.once('close', function close() {
@@ -116,5 +98,3 @@ TcpServer.prototype.close = function (callback: ?() => void) {
 TcpServer.prototype.ref = TcpServer.prototype.unref = function () {
   /* nop */
 };
-
-module.exports = TcpServer;

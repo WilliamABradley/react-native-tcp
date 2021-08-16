@@ -1,34 +1,5 @@
-/**
- * Copyright (c) 2015-present, Peel Technologies, Inc.
- * All rights reserved.
- *
- * @providesModule TcpSocket
- * @flow
- */
 
-if (!(global.process && global.process.nextTick)) {
-  global.process = require('process'); // needed to make stream-browserify happy
-}
-
-var Buffer = (global.Buffer = global.Buffer || require('buffer').Buffer);
-
-var util = require('util');
-var stream = require('stream-browserify');
-// var EventEmitter = require('events').EventEmitter;
-var ipRegex = require('ip-regex');
-var { NativeEventEmitter, NativeModules } = require('react-native');
-var Sockets = NativeModules.TcpSockets;
-var base64 = require('base64-js');
-var Base64Str = require('./base64-str');
-var noop = function () { };
-var instances = 0;
-var STATE = {
-  DISCONNECTED: 0,
-  CONNECTING: 1,
-  CONNECTED: 2,
-};
-
-function TcpSocket(options: ?{ id: ?number }) {
+function _TcpSocket(options?: { id?: number }) {
   if (!(this instanceof TcpSocket)) {
     return new TcpSocket(options);
   }
