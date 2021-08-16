@@ -6,9 +6,5 @@
     <ProjectReference Include="$(ProjectDir)..\..\..\..\windows\ReactNativeTcp\ReactNativeTcp.csproj">
       <Project>{C9F01FE1-12BC-4153-8FCF-C168CE484CC0}</Project>
     </ProjectReference>
-    <!-- Projects from net -->
-    <ProjectReference Include="$(ProjectDir)..\..\..\..\windows\ReactNativeTcp\ReactNativeTcp.csproj">
-      <Project>{C9F01FE1-12BC-4153-8FCF-C168CE484CC0}</Project>
-    </ProjectReference>
   </ItemGroup>
 </Project>

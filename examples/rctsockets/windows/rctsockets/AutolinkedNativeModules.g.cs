@@ -5,9 +5,6 @@ using System.Collections.Generic;
 // Namespaces from react-native-tcp
 using ReactNativeTcp;
 
-// Namespaces from net
-using ReactNativeTcp;
-
 namespace Microsoft.ReactNative.Managed
 {
     internal static class AutolinkedNativeModules
@@ -15,8 +12,6 @@ namespace Microsoft.ReactNative.Managed
         internal static void RegisterAutolinkedNativeModulePackages(IList<IReactPackageProvider> packageProviders)
         { 
             // IReactPackageProviders from react-native-tcp
-            packageProviders.Add(new ReactNativeTcp.ReactPackageProvider());
-            // IReactPackageProviders from net
             packageProviders.Add(new ReactNativeTcp.ReactPackageProvider());
         }
     }
