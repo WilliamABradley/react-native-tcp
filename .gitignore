@@ -37,3 +37,5 @@ npm-debug.log
 .vscode/tasks.json
 examples/rctsockets/android/.settings/org.eclipse.buildship.core.prefs
 examples/rctsockets/android/.project
+
+/lib/

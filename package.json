@@ -2,13 +2,16 @@
   "name": "react-native-tcp",
   "version": "4.0.0",
   "description": "node's net API for react-native",
-  "main": "./TcpSockets.js",
+  "main": "./lib/index.js",
   "scripts": {
     "start": "exit 1",
     "build": "tsc"
   },
+  "react-native": {
+    "net": "./lib/index.js"
+  },
   "browser": {
-    "net": "./TcpSockets.js"
+    "net": "./lib/index.js"
   },
   "repository": {
     "type": "git",
