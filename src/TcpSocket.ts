@@ -29,21 +29,21 @@ export default class TcpSocket extends stream.Duplex implements Socket {
 
     if (options && options.id) {
       // e.g. incoming server connections
-      this._id = Number(options.id);
+      this.id = Number(options.id);
 
-      if (this._id <= instances) {
-        throw new Error('Socket id ' + this._id + 'already in use');
+      if (this.id <= instances) {
+        throw new Error('Socket id ' + this.id + 'already in use');
       }
     } else {
       // javascript generated sockets range from 1-1000
-      this._id = instances++;
+      this.id = instances++;
     }
 
     this._eventEmitter = new NativeEventEmitter(Sockets);
     this.read(0);
   }
 
-  private _id: number;
+  id: number;
   private _eventEmitter: NativeEventEmitter;
   private _state: STATE = STATE.DISCONNECTED;
   private _subs: EmitterSubscription[] = [];
@@ -110,7 +110,7 @@ export default class TcpSocket extends stream.Duplex implements Socket {
     this._debug('connecting, host:', host, 'port:', port);
 
     this._destroyed = false;
-    Sockets.connect(this._id, host, Number(port), options);
+    Sockets.connect(this.id, host, Number(port), options);
 
     return this;
   }
@@ -202,7 +202,7 @@ export default class TcpSocket extends stream.Duplex implements Socket {
     this._destroyed = true;
     this._debug('ending');
 
-    Sockets.end(this._id);
+    Sockets.end(this.id);
   };
 
   destroy() {
@@ -211,7 +211,7 @@ export default class TcpSocket extends stream.Duplex implements Socket {
       this._debug('destroying');
       this._clearTimeout();
 
-      Sockets.destroy(this._id);
+      Sockets.destroy(this.id);
     }
   };
 
@@ -234,7 +234,7 @@ export default class TcpSocket extends stream.Duplex implements Socket {
       );
     }
 
-    Sockets.write(this._id, str, (err: any) => {
+    Sockets.write(this.id, str, (err: any) => {
       if (this._timeout) {
         this._activeTimer(this._timeout.msecs);
       }
@@ -265,9 +265,53 @@ export default class TcpSocket extends stream.Duplex implements Socket {
     }
   }
 
+  _registerEvents() {
+    if (this._subs && this._subs.length > 0) {
+      return;
+    }
+
+    this._subs = [
+      this._eventEmitter.addListener('connect', ev => {
+        if (this.id !== ev.id) {
+          return;
+        }
+        this._onConnect(ev.address);
+      }),
+      this._eventEmitter.addListener('connection', ev => {
+        if (this.id !== ev.id) {
+          return;
+        }
+        this._onConnection(ev.info);
+      }),
+      this._eventEmitter.addListener('data', ev => {
+        if (this.id !== ev.id) {
+          return;
+        }
+        this._onData(ev.data);
+      }),
+      this._eventEmitter.addListener('close', ev => {
+        if (this.id !== ev.id) {
+          return;
+        }
+        this._onClose(ev.hadError);
+      }),
+      this._eventEmitter.addListener('error', ev => {
+        if (this.id !== ev.id) {
+          return;
+        }
+        this._onError(ev.error);
+      }),
+    ];
+  }
+
+  _unregisterEvents() {
+    this._subs.forEach(e => e.remove());
+    this._subs = [];
+  }
+
   private _debug(...args: Parameters<Console['log']>) {
     if (__DEV__) {
-      args.unshift('socket-' + this._id);
+      args.unshift('socket-' + this.id);
       console.log.apply(console, args);
     }
   }
@@ -374,50 +418,6 @@ export default class TcpSocket extends stream.Duplex implements Socket {
     this.emit('close', hadError);
   }
 
-  private _registerEvents() {
-    if (this._subs && this._subs.length > 0) {
-      return;
-    }
-
-    this._subs = [
-      this._eventEmitter.addListener('connect', ev => {
-        if (this._id !== ev.id) {
-          return;
-        }
-        this._onConnect(ev.address);
-      }),
-      this._eventEmitter.addListener('connection', ev => {
-        if (this._id !== ev.id) {
-          return;
-        }
-        this._onConnection(ev.info);
-      }),
-      this._eventEmitter.addListener('data', ev => {
-        if (this._id !== ev.id) {
-          return;
-        }
-        this._onData(ev.data);
-      }),
-      this._eventEmitter.addListener('close', ev => {
-        if (this._id !== ev.id) {
-          return;
-        }
-        this._onClose(ev.hadError);
-      }),
-      this._eventEmitter.addListener('error', ev => {
-        if (this._id !== ev.id) {
-          return;
-        }
-        this._onError(ev.error);
-      }),
-    ];
-  }
-
-  private _unregisterEvents() {
-    this._subs.forEach(e => e.remove());
-    this._subs = [];
-  }
-
   bufferSize: number = 1024;
   bytesRead: number = 0;
   bytesWritten: number = 0;
@@ -431,7 +431,7 @@ export default class TcpSocket extends stream.Duplex implements Socket {
 
 // Returns an array [options] or [options, cb]
 // It is the same as the argument of TcpSocket#connect
-function NormalizeConnectArgs(args: Parameters<TcpSocket['connect']>): [TcpSocketConnectOpts] | [TcpSocketConnectOpts, () => void] {
+export function NormalizeConnectArgs(args: Parameters<TcpSocket['connect']>): [TcpSocketConnectOpts] | [TcpSocketConnectOpts, () => void] {
   let options: TcpSocketConnectOpts = {
     port: 0,
   };
